@@ -62,21 +62,36 @@ app.layout = html.Div([
                     )
                }
         ),
-        # dcc.Graph(
-        # id='casedeathD',
-        # figure={
-        #     'data': [go.Line(
-        #             x = main_df.index,
-        #             y = main_df['EsetD','HalottD'],
-        #             )
-        #     ],
-        #     'layout': go.Layout(
-        #         legend={'x': 0, 'y': 1},
-        #         hovermode='closest',
-        #         title='Esetek száma',
-        #             )
-        #        }
-        # ),
+        dcc.Graph(
+        id='casedeathD',
+        figure={
+            'data': [go.Bar(
+                    x = main_df.index,
+                    y = main_df['EsetD'],
+                    )
+            ],
+            'layout': go.Layout(
+                legend={'x': 0, 'y': 1},
+                hovermode='closest',
+                title='Esetek változása (előző naphoz képest)',
+                    )
+               }
+        ),
+        dcc.Graph(
+        id='deathbar',
+        figure={
+            'data': [go.Bar(
+                    x = main_df.index,
+                    y = main_df['HalottD'],
+                    )
+            ],
+            'layout': go.Layout(
+                legend={'x': 0, 'y': 1},
+                hovermode='closest',
+                title='Halálozások változása (előző naphoz képest)',
+                    )
+               }
+        ),
 ])
 
 app.css.append_css({"external_url": "https://codepen.io/chriddyp/pen/bWLwgP.css"})
