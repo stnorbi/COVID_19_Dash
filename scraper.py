@@ -56,7 +56,7 @@ def main(the_country):
         page = requests.get(url)
         soup = bs(page.content, 'html.parser')
         c = soup.find_all(class_ = 'number')
-        eset = int(c[0].text)
+        eset = int(c[0].text.replace(" ",""))
         gyogyult = int(c[1].text)
         
         page = requests.get(url+'/elhunytak')
@@ -107,4 +107,3 @@ def main(the_country):
     df['HalottD'] = abs(df['Halott'] - df['Halott+'])
     df = df.astype(int)
     return df
-
