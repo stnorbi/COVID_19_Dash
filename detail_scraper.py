@@ -21,7 +21,6 @@ def detail_table():
     while len(hf_tmp)>0:
       try:  
         hf_tmp = pd.read_html('https://koronavirus.gov.hu/elhunytak?page='+str(i))
-        #print(hf_tmp)
         if hf_tmp is not None:
             hf_tmp = pd.DataFrame(hf_tmp[0])
             hf=hf.append(hf_tmp,ignore_index=True)

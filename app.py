@@ -36,7 +36,6 @@ distage=d_src.dist_age(details)
 #colors
 colors = ['blue','red']
 
-print(distage)
 
 
 app = dash.Dash(external_stylesheets=[
