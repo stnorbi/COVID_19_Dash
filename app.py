@@ -125,7 +125,7 @@ app.layout = html.Div([
                         'layout': go.Layout(
                             legend={'x': 0, 'y': 1},
                             hovermode='closest',
-                            title='Halál esetek számának változása (napi bontásban)',
+                            title='Halálesetek számának változása (napi bontásban)',
                                 )
                         }
                     ),
