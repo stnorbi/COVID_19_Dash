@@ -175,7 +175,7 @@ app.layout = html.Div([
             )
         ),
         dbc.Row([html.H2
-        ('Halálozások oka')], justify="center", align="left"),
+        ('Elhunytak alapbetegségei')], justify="center", align="left"),
         dbc.Row([html.Img(id="image_wc")], justify="center", align="center"),
 ])
 
