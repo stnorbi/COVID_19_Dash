@@ -107,3 +107,6 @@ def main(the_country):
     df['HalottD'] = abs(df['Halott'] - df['Halott+'])
     df = df.astype(int)
     return df
+
+
+print(main('Hungary'))

@@ -50,7 +50,7 @@ server = app.server
 
 
 app.layout = html.Div([
-        dbc.Row([html.H1('COVID-19 DASHBOARD MAGYARORSZÁG')], justify="center", align="center"),
+        dbc.Row([html.H1('COVID-19 DASHBOARD - MAGYARORSZÁG')], justify="center", align="center"),
         dbc.Row([
             dbc.Col(
                 html.Div(
@@ -125,7 +125,7 @@ app.layout = html.Div([
                         'layout': go.Layout(
                             legend={'x': 0, 'y': 1},
                             hovermode='closest',
-                            title='Halál esetek száma (napi bontásban)',
+                            title='Halál esetek számának változása (napi bontásban)',
                                 )
                         }
                     ),
