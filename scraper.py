@@ -108,5 +108,3 @@ def main(the_country):
     df = df.astype(int)
     return df
 
-
-print(main('Hungary'))
