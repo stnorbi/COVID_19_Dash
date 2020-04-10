@@ -9,7 +9,7 @@ def detail_table():
     page = requests.get(url)
     soup = bs(page.content, 'html.parser')
     c = soup.find_all(class_ = 'number')
-    eset = int(c[0].text)
+    eset = int(c[0].text.replace(" ",""))
     gyogyult = int(c[1].text)
 
     hf = pd.read_html('https://koronavirus.gov.hu/elhunytak')
