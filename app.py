@@ -25,13 +25,17 @@ import detail_scraper as d_src
 #scraping and calculation
 main_df=src.main('Hungary')
 
-
+# detailed level of society
 details=d_src.detail_table()
 reason=details['Alapbetegségek'].values
 
 distgend,nem=d_src.dist_gend(details)
 avg_man, avg_wmn=d_src.avg_ages(details)
 distage=d_src.dist_age(details)
+
+#at county level
+county_df=d_src.county_data()
+
 
 #colors
 colors = ['blue','red']
@@ -41,12 +45,11 @@ colors = ['blue','red']
 app = dash.Dash(external_stylesheets=[
     "https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap-grid.min.css"
 ])
-# app.scripts.append_script({
-#     'external_url': '/static/ js/javascript.js?%s' % dtm.now(),
-# })
+app.scripts.append_script({
+    'external_url': '/static/ js/javascript.js?%s' % dtm.now(),
+})
 server = app.server
 
-#app.css.append_css({'external_url': 'https://codepen.io/chriddyp/pen/bWLwgP.css'})
 
 
 app.layout = html.Div([
@@ -150,7 +153,7 @@ app.layout = html.Div([
             ,width={'size':6}),
             dbc.Col(
                 html.Div(
-                                dcc.Graph(id='g7',
+                    dcc.Graph(id='g7',
                     figure={
                     'data': [go.Pie(
                             values=distage["Eset/Korcsoport"],
@@ -166,6 +169,28 @@ app.layout = html.Div([
                 )
             ),width={'size':6}),
             ]),
+        dbc.Row([
+            dbc.Col(
+                html.Div(
+                    dcc.Graph(id='g8',
+                    figure={
+                    'data': [go.Line(
+                            x = county_df.index,
+                            y =  county_df[rowname],
+                            name=rowname,
+                            )for rowname in county_df.columns
+                            ],
+                    'layout': go.Layout(
+                            legend={'x': 0, 'y': 1},
+                            xaxis={'title': 'Dátum'},
+                            yaxis={'title': 'Esetek száma'},
+                            hovermode='closest',
+                            title='Megyénkénti terjedés üteme',
+                            )
+                    }
+                )     
+            ),),
+        ]),    
         html.Div(
             html.Div(
             [html.H3("Elhalálozottak átlag életkora nemenként"),
@@ -193,6 +218,7 @@ def get_wordcloud(data=None):
             height=400).generate(text)
     return wc.to_image()
 
+#wordcloud callback function
 @app.callback(Output('image_wc', 'src'), [Input('image_wc', 'id')])
 def make_image(b):
     img = BytesIO()

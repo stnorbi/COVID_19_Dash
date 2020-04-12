@@ -3,7 +3,9 @@ import numpy as np
 import datetime as datetime
 from bs4 import BeautifulSoup as bs
 import requests
-import dash 
+import dash
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
 def detail_table():
     url='https://koronavirus.gov.hu/'
@@ -51,3 +53,27 @@ def dist_age(hf):
     hf.rename(columns = {'Nem': 'Eset/Korcsoport'}, inplace = True)
     return hf
 
+
+def county_data():
+    scope = ['https://spreadsheets.google.com/feeds',
+            'https://www.googleapis.com/auth/drive']
+
+    credentials = ServiceAccountCredentials.from_json_keyfile_name(
+            'credential/dash-tutorial-e41737b72ffc.json', scope) # Your json file here
+
+            
+
+    gc = gspread.authorize(credentials)
+
+    wks = gc.open_by_url("https://docs.google.com/spreadsheets/d/1e4VEZL1xvsALoOIq9V2SQuICeQrT5MtWfBm32ad7i8Q/edit?usp=sharing").worksheet('megyei')
+
+    data = wks.get_all_values()
+    headers = data.pop(0)
+
+    df = pd.DataFrame(data, columns=headers)
+
+    df=df.set_index('Dátum')
+
+    
+
+    return df
